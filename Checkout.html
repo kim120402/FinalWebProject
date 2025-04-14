@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="home.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <div id="header"></div> 
+
+    <!-- Content -->
+    <main>
+        <!-- 合并后的页面 -->
+        <section class="checkout-container">
+            <!-- 左侧信息输入区域 -->
+            <div class="checkout-form">
+                <!-- 联系信息 -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <h2>Contact</h2>
+                        <a href="#" class="log-in">Log in</a>
+                    </div>
+                    <input type="email" placeholder="Email" required>
+                    <label class="checkbox-label">
+                        <input type="checkbox" checked>
+                        <span>Email me with news and offers</span>
+                    </label>
+                </div>
+
+                <!-- 配送信息 -->
+                <div class="form-section">
+                    <h2>Delivery</h2>
+                    <div class="country-select-wrapper">
+                        <div class="country-display" onclick="triggerCountrySelect()">
+                            <div class="country-text">
+                                <span class="country-label">Country/Region</span>
+                                <span class="country-value">United States</span>
+                            </div>
+                            <span class="dropdown-arrow">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M7 10l5 5 5-5z" fill="#999"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <select id="country" onchange="updateStates(); updateCountryDisplay()" required hidden>
+                            <option value="US" selected>United States</option>
+                            <option value="CA">Canada</option>
+                        </select>
+                    </div>
+                    <div class="name-inputs">
+                        <input type="text" placeholder="First name" required>
+                        <input type="text" placeholder="Last name" required>
+                    </div>
+                    <div class="address-input">
+                        <input type="text" placeholder="Address" required>
+                        <span class="search-icon">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" fill="#999"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <input type="text" placeholder="Apartment, suite, etc. (optional)">
+                    <div class="location-inputs">
+                        <input type="text" placeholder="City" required>
+                        <select id="state" required>
+                            <option value="">State</option>
+                            <!-- 州/省选项将通过 JavaScript 动态填充 -->
+                        </select>
+                        <input type="text" placeholder="ZIP code" required>
+                    </div>
+                    <div class="phone-input">
+                        <input type="tel" placeholder="Phone (optional)">
+                        <span class="info-icon">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm0 14a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1h.01a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v4z" fill="#999"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <label class="checkbox-label">
+                        <input type="checkbox">
+                        <span class="bold-text">Text me with news and offers</span>
+                    </label>
+                </div>
+
+                <!-- 支付信息 -->
+                <div class="form-section payment-section">
+                    <h2>Payment</h2>
+                    <p>All transactions are secure and encrypted.</p>
+                    <div class="payment-methods">
+                        <div class="payment-option">
+                            <input type="radio" name="payment" id="credit-card" checked onchange="togglePaymentDetails()">
+                            <label for="credit-card" class="radio-label">
+                                <span>Credit card</span>
+                            </label>
+                            <div class="payment-icons">
+                                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/visa.sxIq5Dot.svg" alt="Visa">
+                                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/mastercard.1c4_lyMp.svg" alt="Mastercard">
+                                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/amex.Csr7hRoy.svg" alt="Amex">
+                                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/discover.C7UbFpNb.svg" alt="Discover">
+                                <span>+4</span>
+                            </div>
+                        </div>
+                        <div class="credit-card-details" id="credit-card-details">
+                            <div class="card-number-input">
+                                <input type="text" placeholder="Card number">
+                                <span class="lock-icon">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 5h-1V4a3 3 0 0 0-6 0v1H4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zM8 10a1 1 0 0 1-1-1V8a1 1 0 0 1 2 0v1a1 1 0 0 1-1 1zm2-5H6V4a2 2 0 0 1 4 0v1z" fill="#999"/>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="card-info">
+                                <input type="text" placeholder="Expiration date (MM / YY)">
+                                <div class="security-code-input">
+                                    <input type="text" placeholder="Security code">
+                                    <span class="info-icon">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm0 14a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1h.01a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v4z" fill="#999"/>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                            <input type="text" placeholder="Name on card">
+                            <label class="checkbox-label">
+                                <input type="checkbox" checked>
+                                <span>Use shipping address as billing address</span>
+                            </label>
+                        </div>
+
+                        <div class="payment-option">
+                            <input type="radio" name="payment" id="paypal" onchange="togglePaymentDetails()">
+                            <label for="paypal" class="radio-label">
+                                <span>PayPal</span>
+                            </label>
+                            <img src="https://i.pcmag.com/imagery/reviews/068BjcjwBw0snwHIq0KNo5m-15..v1602794215.png" alt="PayPal" class="paypal-icon">
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" name="payment" id="shop-pay" onchange="togglePaymentDetails()">
+                            <label for="shop-pay" class="radio-label">
+                                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/shop-pay-logo.B-h0fSp6.svg" alt="Shop Pay" class="shop-pay-icon">
+                                <span class="installment-text">Pay in full or in installments</span>
+                            </label>
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" name="payment" id="afterpay" onchange="togglePaymentDetails()">
+                            <label for="afterpay" class="radio-label">
+                                <span>Afterpay</span>
+                            </label>
+                            <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/cashapppay.B2qOrdVe.svg" alt="Afterpay">
+                        </div>
+                    </div>
+
+                    <div class="remember-me">
+                        <h3>Remember me</h3>
+                        <div class="remember-me-box">
+                            <label class="checkbox-label">
+                                <input type="checkbox" checked>
+                                <span class="bold-text">Save my information for a faster checkout with a Shop account</span>
+                            </label>
+                            <div class="secure-info">
+                                <span class="lock-icon">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 5h-1V4a3 3 0 0 0-6 0v1H4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zM8 10a1 1 0 0 1-1-1V8a1 1 0 0 1 2 0v1a1 1 0 0 1-1 1zm2-5H6V4a2 2 0 0 1 4 0v1z" fill="#999"/>
+                                    </svg>
+                                </span>
+                                <span>Secure and encrypted</span>
+                                <span class="shop-text">shop</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="pay-now">Pay now</button>
+                    <p class="terms">
+                        Your info will be saved to a Shop account. By continuing, you agree to Shop's <a href="#" class="terms-link">Terms of Service</a> and acknowledge the <a href="#" class="terms-link">Privacy Policy</a>.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 右侧订单摘要 -->
+            <div class="order-summary">
+                <div class="cart-item">
+                    <span class="item-count">1</span>
+                    <img src="Images/moonstone.JPG" class="item-image">
+                    <div class="item-details">
+                        <h3>Rainbow Moonstone Bracelet</h3>
+                
+                    </div>
+                    <p class="item-price">$70.00</p>
+                </div>
+                <div class="discount-code">
+                    <input type="text" placeholder="Discount code or gift card">
+                    <button>Apply</button>
+                </div>
+                <div class="summary-details">
+                    <p>Subtotal <span>$70.00</span></p>
+                    <p>Shipping <span><a href="#">Enter shipping address</a></span></p>
+                    <p class="total">Total <span>CAD $70.00</span></p>
+                </div>
+                <div class="tax-info">
+                    <span class="info-icon">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm0 14a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1h.01a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v4z" fill="#999"/>
+                        </svg>
+                    </span>
+                    <p>The total amount you pay includes all applicable customs duties & taxes. We guarantee no additional charges on delivery.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    
+
+    <!-- JavaScript 动态更新州/省和支付方式切换 -->
+    <script>
+        // 触发隐藏的 <select> 元素的选择
+        function triggerCountrySelect() {
+            const select = document.getElementById('country');
+            select.click(); // 模拟点击 <select> 元素以打开下拉菜单
+        }
+
+        // 更新 Country/Region 显示
+        function updateCountryDisplay() {
+            const select = document.getElementById('country');
+            const countryValue = document.querySelector('.country-value');
+            countryValue.textContent = select.options[select.selectedIndex].text;
+        }
+
+        function updateStates() {
+            const country = document.getElementById('country').value;
+            const stateSelect = document.getElementById('state');
+            stateSelect.innerHTML = '<option value="">State</option>';
+
+            const usStates = [
+                'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware',
+                'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky',
+                'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri',
+                'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York',
+                'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
+                'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington',
+                'West Virginia', 'Wisconsin', 'Wyoming'
+            ];
+
+            const caProvinces = [
+                'Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador',
+                'Nova Scotia', 'Ontario', 'Prince Edward Island', 'Quebec', 'Saskatchewan'
+            ];
+
+            const options = country === 'US' ? usStates : caProvinces;
+            options.forEach(state => {
+                const option = document.createElement('option');
+                option.value = state;
+                option.textContent = state;
+                stateSelect.appendChild(option);
+            });
+        }
+
+        // 切换支付方式时显示/隐藏 Credit Card 详情
+        function togglePaymentDetails() {
+            const creditCardDetails = document.getElementById('credit-card-details');
+            const creditCardRadio = document.getElementById('credit-card');
+            creditCardDetails.style.display = creditCardRadio.checked ? 'block' : 'none';
+        }
+
+        // 初始化州/省选项和支付方式详情
+        updateStates();
+        togglePaymentDetails();
+        updateCountryDisplay(); // 初始化时更新 Country/Region 显示
+    </script>
+    <!-- Footer -->
+    <div id="footer"></div>
+
+     <!--js--> 
+     <script>
+         Promise.all([
+             fetch('header(new).html').then(response => response.text()),
+             fetch('footer(new).html').then(response => response.text())
+         ])
+         .then(([headerData, footerData]) => {
+             document.getElementById('header').innerHTML = headerData;
+             document.getElementById('footer').innerHTML = footerData;
+ 
+             const script = document.createElement('script');
+             script.src = 'home.js';
+             document.body.appendChild(script);
+         })
+         .catch(error => {
+             console.error('Error loading header/footer:', error);
+         });
+     </script>
+</body>
+</html>

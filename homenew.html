@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="home.css">
+    <title>TiuTiu Gems</title>
+</head>
+<body>
+    <!-- Header -->
+    <div id="header"></div> 
+
+    <!-- Content -->
+    <div id="home-content">
+        <div id="home-info">
+            <div id="heading">“Designed for you, worn with love”</div>
+            <div id="header-p">Explore our collection of meaningful jewelry with a feeling, a direction, an intent to each piece. Some are light-hearted, celebrating LUCKY in all its forms. Others are designed to inspire strength, love, or balance, reminding you of your inner power and personal journey. Every piece is crafted with intention — whether you're manifesting new beginnings, honoring a memory, or simply adding a touch of magic to your day.
+            </div>
+            <button id="shop-button"><a href="index.html">Shop Now</a></button>
+        </div>
+    </div>
+    
+    <div class="home-img-container">
+        <img id="home-image" src="Images/home-image2.png" alt="Carousel Image">
+        <div id="btn-prev-next">
+            <button id="prev">❮</button>
+            <button id="next">❯</button>
+        </div>
+    </div>
+    <!--Best sellers-->
+    <div id="bs-header">TiuTiu Best Sellers</div>
+    <div id="bs-container">
+        <div id="bs-images">
+            <div id="bs-img1-container">
+                <img id="bs-img1" src="images/moonstone.JPG" alt="">
+                <button id="bs-img1-button"><a href="product.html?index=0">Rainbow Moonstone</a></button>
+            </div>
+            <div id="bs-img2-container">
+                <img id="bs-img2" src="images/aquamarine.JPG" alt="">
+                <button id="bs-img2-button"><a href="product.html?index=1">Aquamarine Crystal</a></button>
+            </div>
+            <div id="bs-img3-container">
+                <img id="bs-img3" src="images/jade.JPG" alt="">
+                <button id="bs-img3-button"><a href="product.html?index=4">Natural Jadeite</a></button>
+            </div>
+        </div>
+    </div>
+    <div id="see-more"><a href="index.html">See More</a></div>
+
+    <!--Video-->
+    <section class="video-container">
+        <div class="video-wrapper">
+            <video id="centeredVideo" class="centered-video" controls autoplay muted>
+                <source src="video.mp4" type="video/mp4">
+                <source src="videos/promo-video.webm" type="video/webm">
+                Your browser does not support HTML5 video.
+            </video>
+            
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <!--js--> 
+    <script>
+        Promise.all([
+            fetch('header(new).html').then(response => response.text()),
+            fetch('footer(new).html').then(response => response.text())
+        ])
+        .then(([headerData, footerData]) => {
+            document.getElementById('header').innerHTML = headerData;
+            document.getElementById('footer').innerHTML = footerData;
+
+            const script = document.createElement('script');
+            script.src = 'home.js';
+            document.body.appendChild(script);
+        })
+        .catch(error => {
+            console.error('Error loading header/footer:', error);
+        });
+    </script>
+</body>
+</html>

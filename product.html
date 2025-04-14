@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <link rel="stylesheet" href="home.css">
+
+</head>
+<body>
+    <!-- Header -->
+    <div id="header"></div> 
+
+    <!-- Content -->
+    <div class="product-container">
+        <!-- Back to Shop Link -->
+        <a href="index.html" class="back-to-shop">Back to Shop</a>
+
+        <!-- Product Image Section -->
+        <div class="product-image">
+            <img id="mainImage" class="main-image" src="https://via.placeholder.com/400x400?text=Product+Image" alt="Main Product Image">
+            <div class="thumbnails" id="thumbnails">
+                <!-- Thumbnails will be populated dynamically -->
+            </div>
+        </div>
+
+        <!-- Product Details Section -->
+        <div class="product-details">
+            <h1 class="product-title" id="productName">Product Name</h1>
+            <p class="product-price" id="productPrice">$0.00</p>
+            <p class="product-description" id="productDescription">Product description goes here.</p>
+
+            <!-- Checkout Button -->
+             <a href="Checkout.html">
+            <button class="checkout" id="checkoutButton">CHECK OUT • $0.00</button> </a>
+        </div>
+    </div>
+
+    <script>
+        // Array of product data
+        const products = [
+            {
+                name: "Rainbow Moonstone Bracelet",
+                price: "$70.00",
+                description: "Rainbow moonstone is a variety of feldspar and flashes in a variety of colours when it is turned to different angles. The most sought after colour is blue, which comes in a range of gorgeous shades.",
+                images: [
+                    "images/moonstone.JPG",
+                    "images/moon2.JPG",
+                    "images/moon3.JPG",
+                    "images/moon4.JPG"
+                ]
+            },
+            {
+                name: "Aquamarine Crystal Bracelet",
+                price: "$86.00",
+                description: "‘Aqua’ is the Latin word for water and ‘marine’ means ‘of the sea,’ which signifies the Aquamarine meaning and its link to ancient water kingdoms. With its stunning shade of translucent pale turquoise, true...",
+                images: [
+                    "images/aquamarine.JPG",
+                    "images/aqua.JPG",
+                    "images/aqua1.JPG",
+                    "images/aqua2.JPG"
+                ]
+            },
+            {
+                name: "Yellow Rutilated Quartz Energy Bracelet",
+                price: "$98.00",
+                description: "Light up your soul with the Yellow Rutilated Quartz Energy Bracelet. For those who crave a wash of sunshine, the promise of a blooming lotus, and the bright determination to climb out of the dark, this...",
+                images: [
+                    "images/yellow.JPG",
+                    "images/yellow1.JPG",
+                    "images/yellow2.JPG",
+                    "images/yellow3.JPG"
+                ]
+            },
+            {
+                name: "Pink Rose Quartz",
+                price: "$65.00",
+                description: "Rose Quartz is the stone of universal love. It restores trust and harmony in relationships, encouraging unconditional love. Rose Quartz purifies and opens the heart at all levels to promote love, self-love, friendship, deep inner healing and feelings of peace.",
+                images: [
+                    "images/pink.JPG",
+                    "images/pink1.JPG",
+                    "images/pink2.JPG",
+                    "images/pink3.JPG"
+                ]
+            },
+            {
+                name: "Natural Jadeite",
+                price: "$88.00",
+                description: "Jadeite Jade carries symbolism associated with prosperity, wealth, and good luck. Its diverse colour range includes green, lavender, yellow to brown, white and the rare blue variant, each representing manifestations and vitality, strengthening ties to abundance.",
+                images: [
+                    "images/jade1.JPG",
+                    "images/jade2.JPG",
+                    "images/jade3.JPG",
+                    "images/jade4.JPG"
+                ]
+            },
+            {
+                name: "Green Rutilated Quartz",
+                price: "$68.00",
+                description: "Green Rutilated Quartz is a stunning and energetically powerful gemstone, known for its unique green rutile inclusions within the clear quartz. This beautiful stone carries potent healing properties and is often used for boosting physical vitality, manifesting prosperity, and calming the mind.",
+                images: [
+                    "images/green.JPG",
+                    "images/green1.JPG",
+                    "images/green2.JPG",
+                    "images/green3.JPG"
+                ]
+            }
+        ];
+
+        // Get the product index from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const productIndex = parseInt(urlParams.get('index')) || 0;
+
+        // Get the selected product
+        const product = products[productIndex];
+
+        // Populate the product details
+        document.getElementById('productName').textContent = product.name;
+        document.getElementById('productPrice').textContent = product.price;
+        document.getElementById('productDescription').textContent = product.description;
+        document.getElementById('checkoutButton').textContent = `CHECK OUT • ${product.price}`;
+        document.getElementById('mainImage').src = product.images[0];
+
+        // Populate the thumbnails
+        const thumbnailsContainer = document.getElementById('thumbnails');
+        product.images.forEach((image, index) => {
+            const thumbnail = document.createElement('img');
+            thumbnail.className = 'thumbnail';
+            thumbnail.src = image;
+            thumbnail.alt = `Thumbnail ${index + 1}`;
+            thumbnail.onclick = () => changeImage(image);
+            thumbnailsContainer.appendChild(thumbnail);
+        });
+
+        // Function to change the main image when a thumbnail is clicked
+        function changeImage(imageSrc) {
+            document.getElementById('mainImage').src = imageSrc;
+        }
+        function goToCheckout() {
+    console.log('goToCheckout called');
+    const selectedProduct = {
+        name: product.name,
+        price: product.price,
+        image: product.images[0],
+        size: "OS"
+    };
+    localStorage.setItem('selectedProduct', JSON.stringify(selectedProduct));
+    console.log('Product saved to localStorage:', selectedProduct);
+    console.log('localStorage content:', localStorage.getItem('selectedProduct'));
+    window.location.href = 'Checkout.html';
+}
+    </script>
+
+        
+    </script>
+    <!-- Footer -->
+    <div id="footer"></div>
+
+     <!--js--> 
+     <script>
+         Promise.all([
+             fetch('header(new).html').then(response => response.text()),
+             fetch('footer(new).html').then(response => response.text())
+         ])
+         .then(([headerData, footerData]) => {
+             document.getElementById('header').innerHTML = headerData;
+             document.getElementById('footer').innerHTML = footerData;
+ 
+             const script = document.createElement('script');
+             script.src = 'home.js';
+             document.body.appendChild(script);
+         })
+         .catch(error => {
+             console.error('Error loading header/footer:', error);
+         });
+     </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TiuTiu Gems</title>
+    <link rel="stylesheet" href="home.css">
+    <script src="info.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <div id="header"></div> 
+
+        <div id="content"></div>
+      
+        <script>
+          const sections = {
+            "customer-service": "<h2>Customer Service </h2><p>QUESTIONS AND CONTACT INFORMATION </p><p>If you would like to: access, correct, amend or delete any personal information we have about you, register a complaint, or simply want more information contact our Privacy Compliance Officer at info@tiutiu.com or by mail at TiuTiu </p><p>[Re: Privacy Compliance Officer]</p>",
+            "jewelry-care": "<h2>Jewelry Care</h2><p>This is important! <p> Gold Plate: Our gold plated pieces are sterling silver heavily plated in 14k yellow gold. While the plating is strong, water and chemicals will affect plating over time and should be avoided. Perfumes, creams, lotions, and makeup all contain substances than can affect plated jewelry, so please remove jewelry before showering and keep away from products. If you would like to clean your plated piece, use a soft, damp cloth. Please be sure to fully dry your piece before wearing it and do not use harsh chemicals, jewelry cleaners or polishing cloths. To clean your jewelry, we recommend using a mild soap and water, and gently clean it with a soft bristled tooth brush. Immediately dry completely using a soft towel. It’s best to store your pieces in the (lovely) green TiuTiu pouch in which it came. </p><p>Sterling Silver: TiuTiu sterling silver pieces can be easily scratched if cleaned with harsh abrasive chemical cleansers. You can clean your sterling silver using products you have around your house! Make a paste with baking soda and water.  Coat your jewelry with this mixture and gently polish off, using lots of water. After any cleaning treatment, make sure to rinse and dry completely. Maintain the fresh sterling glow by using a jewelry polishing cloth, or a soft rag. It’s best to store your pieces in the (lovely) green TiuTiu pouch in which it came.</p>",
+            "returns-repairs": "<h2>Returns & Repairs</h2><p>Once your return is received and inspected, we will send you an email to notify you that we have received your returned item. We will also notify you of the approval or rejection of your refund. </p><p>If you are approved, then your refund will be processed, and a credit will automatically be applied to your credit card or original method of payment, within a certain amount of days.  If your shipping was included in your order, you may be refunded the amount minus $10 (or the actual shipping amount whichever is greater) for shipping. A fee for the return shipping label and handling will be deducted from your refund.</p>",
+            "shipping": "<h2>Shipping</h2><p>STANDARD SHIPPING </p> <p>We ship to all 50 states; Washington, DC; U.S. P.O. Boxes; U.S. territories; APO/FPO/DPO; we do not ship to International addresses. The shipping methods offered during checkout may differ based on your shipping address and items selected.  Orders typically are shipped the business day after purchase and shipped via ground shipping, taking 2 - 6 days, depending on location.  Alaska, Hawaii, P.O. Boxes, US Territories, APO/FPO/DPO shipment times will be longer. </p> <p> HOLIDAY NOTE:  </p><p>Please note that we are closed from DECEMBER 25th - JANUARY 1st.  All orders placed during that time will be shipping when we return to the office.  Rest assured we will handle all orders and respond to all messages quickly upon our return! </p><p>SHIPPING RATES </p><p>We offer discounted shipping on all orders over $150 for domestic orders.  International orders will have the shipping charge identified during checkout.  Overnight and 2nd day shipping are available for an additional fee. TiuTiu is not responsible for the payment of any duties, taxes or other fees assessed to international shipments. TiuTiu is not responsible for any delays or other issues that may arise when shipping. Once your order has shipped, you will receive an email with your tracking number. TiuTiu is not responsible for delivery delays, or any other issues once your order leaves our location. </p><p>Expedited Shipping </p><p>EXPEDITED orders placed after 3 PM ET Monday - Thursday will ship the following business day, and orders placed on Friday after 11AM ET will ship the following Monday. For Express Shipments, we are not responsible if the shipping service fails to meet the overnight or 2 day service commitment.</p>",
+            "privacy-policy": "<h2>Privacy Policy</h2> <p>OVERVIEW </p><p>This website is operated by TiuTiu. Throughout the site, the terms “we”, “us” and “our” refer to TiuTiu. TiuTiu offers this website, including all information, tools and services available from this site to you, the user, conditioned upon your acceptance of all terms, conditions, policies and notices stated here. </p><p> By visiting our site and/ or purchasing something from us, you engage in our “Service” and agree to be bound by the following terms and conditions (“Terms of Service”, “Terms”), including those additional terms and conditions and policies referenced herein and/or available by hyperlink. These Terms of Service apply to all users of the site, including without limitation users who are browsers, vendors, customers, merchants, and/ or contributors of content. </p><p>Please read these Terms of Service carefully before accessing or using our website. By accessing or using any part of the site, you agree to be bound by these Terms of Service. If you do not agree to all the terms and conditions of this agreement, then you may not access the website or use any services. If these Terms of Service are considered an offer, acceptance is expressly limited to these Terms of Service. </p><p>Any new features or tools which are added to the current store shall also be subject to the Terms of Service. You can review the most current version of the Terms of Service at any time on this page. We reserve the right to update, change or replace any part of these Terms of Service by posting updates and/or changes to our website. It is your responsibility to check this page periodically for changes. Your continued use of or access to the website following the posting of any changes constitutes acceptance of those changes.</p>",
+            "terms-service": "<h2>Terms of Service</h2><p>Terms and conditions...</p>"
+          };
+      
+          function getSectionFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('section');
+          }
+      
+          const section = getSectionFromURL();
+          const contentDiv = document.getElementById('content');
+      
+          if (sections[section]) {
+            contentDiv.innerHTML = sections[section];
+          } else {
+            contentDiv.innerHTML = "<h2>Section not found</h2>";
+          }
+        </script>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+     <!--js--> 
+     <script>
+         Promise.all([
+             fetch('header(new).html').then(response => response.text()),
+             fetch('footer(new).html').then(response => response.text())
+         ])
+         .then(([headerData, footerData]) => {
+             document.getElementById('header').innerHTML = headerData;
+             document.getElementById('footer').innerHTML = footerData;
+ 
+             const script = document.createElement('script');
+             script.src = 'home.js';
+             document.body.appendChild(script);
+         })
+         .catch(error => {
+             console.error('Error loading header/footer:', error);
+         });
+     </script>
+</body>
+</html>

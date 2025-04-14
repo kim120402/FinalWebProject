@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop</title>
+    <link rel="stylesheet" href="home.css">
+    
+</head>
+<body>
+    <!-- Header -->
+    <div id="header"></div> 
+
+    <!-- Content -->
+    <div class="slideshow-container">
+        <div class="image-group" id="imageGroup">
+            <img src="images/jewelry1.jpg" alt="Jewelry 1" class="slide">
+            <img src="images/jewelry2.jpg" alt="Jewelry 2" class="slide">
+            <img src="images/jewelry3.jpg" alt="Jewelry 3" class="slide">
+        </div>
+    </div>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const imageGroup = document.getElementById("imageGroup");
+    const allImages = [
+        "images/jewelry1.jpg",
+        "images/jewelry2.jpg",
+        "images/jewelry3.jpg",
+        "images/jewelry4.jpg",
+        "images/jewelry5.jpg",
+        "images/jewelry6.jpg"
+    ];
+
+    let currentIndex = 3; 
+
+    function shiftImages() {
+        const slides = imageGroup.querySelectorAll(".slide");
+        
+        imageGroup.removeChild(slides[0]);
+
+        const newImage = document.createElement("img");
+        const nextImageIndex = currentIndex % allImages.length;
+        newImage.src = allImages[nextImageIndex];
+        
+        newImage.alt = `Jewelry ${nextImageIndex + 1}`;
+        newImage.classList.add("slide");
+        imageGroup.appendChild(newImage);
+
+        currentIndex++;
+    }
+
+    setInterval(shiftImages, 2000);
+});
+    </script>
+
+    <div class="content">
+        <h2>TiuTiu Gems - Jewelry with Meaning</h2>
+        <p>
+            Explore our collection of meaningful jewelry with a feeling, a direction, an intent to each piece. Some are light hearted, celebrating LUCKY in all its forms. Some are serious - our PEACE coin to give you a touchstone to someone you have lost. Some are full of emotion - the JOY we feel from motherhood. There is a design for different milestones in your life.
+        </p>
+    </div>
+    <div class="index-container">
+        <!-- Product Grid -->
+        <div class="product-grid">            
+            <div class="product-card" onclick="goToProductPage(0)">
+                <img src="images/moonstone.JPG" alt="Rainbow Moonstone">
+                <h3>Rainbow Moonstone</h3>
+                <p>$70.00</p>
+            </div>
+            <div class="product-card" onclick="goToProductPage(1)">
+                <img src="images/aquamarine.JPG" alt="Aquamarine Crystal">
+                <h3>Aquamarine Crystal</h3>
+                <p>$86.00</p>
+            </div>
+            <div class="product-card" onclick="goToProductPage(2)">
+                <img src="images/yellow.JPG" alt="Yellow Rutilated Quartz">
+                <h3>Yellow Rutilated Quartz Energy</h3>
+                <p>$98.00</p>
+            </div>
+        </div>
+        <div class="product-grid">               
+            <div class="product-card" onclick="goToProductPage(3)">
+                <img src="images/pink.JPG" alt="Pink Rose Quartz">
+                <h3>Pink Rose Quartz</h3>
+                <p>$65.00</p>
+            </div>
+            <div class="product-card" onclick="goToProductPage(4)">
+                <img src="images/jade.JPG" alt="Natural Jadeite">
+                <h3>Natural Jadeite</h3>
+                <p>$88.00</p>
+            </div>
+            <div class="product-card" onclick="goToProductPage(5)">
+                <img src="images/green.JPG" alt="Green Rutilated Quartz">
+                <h3>Green Rutilated Quartz</h3>
+                <p>$68.00</p>
+            </div>
+        <div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <div id="footer"></div>
+    <script>
+        // Function to redirect to the product page with the product index
+        function goToProductPage(index) {
+            window.location.href = `product.html?index=${index}`;
+        }
+
+        // Nav best seller button
+        function navBestSellerScroll() {
+        document.getElementById("bs-container").scrollIntoView({ behavior: "smooth" });
+        }
+        
+    </script>
+
+     <!--js--> 
+     <script>
+         Promise.all([
+             fetch('header(new).html').then(response => response.text()),
+             fetch('footer(new).html').then(response => response.text())
+         ])
+         .then(([headerData, footerData]) => {
+             document.getElementById('header').innerHTML = headerData;
+             document.getElementById('footer').innerHTML = footerData;
+ 
+             const script = document.createElement('script');
+             script.src = 'home.js';
+             document.body.appendChild(script);
+         })
+         .catch(error => {
+             console.error('Error loading header/footer:', error);
+         });
+     </script>
+</body>
+</html>
